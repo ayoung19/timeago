@@ -4,9 +4,9 @@ version = "1.0.0"
 # Fill out these fields if you intend to generate HTML documentation or publish
 # your project to the Hex package manager.
 #
-# description = "A lightweight library for describing time differences in a human readable format (e.g., '1 minute ago')."
-# licences = ["Apache-2.0"]
-# repository = { type = "github", user = "ayoung19", repo = "timeago" }
+description = "A lightweight library for describing time differences in a human readable format (e.g., '1 minute ago')."
+licences = ["Apache-2.0"]
+repository = { type = "github", user = "ayoung19", repo = "timeago" }
 # links = [{ title = "Website", href = "" }]
 #
 # For a full reference of all the available options, you can have a look at
