@@ -8,9 +8,25 @@ gleam add timeago@1
 ```
 ```gleam
 import timeago
+import gleam/time/timestamp
+import gleam/time/duration
 
 pub fn main() -> Nil {
-  // TODO: An example of the project in use
+  let now = timestamp.system_time()
+  timeago.time_ago(now, None, None)
+  // -> "just now"
+
+  let now = timestamp.system_time()
+  timeago.time_ago(timestamp.add(now, duration.minutes(-1)), None, None)
+  // -> "1 minute ago"
+
+  let now = timestamp.system_time()
+  timeago.time_ago(timestamp.add(now, duration.hours(3)), None, None)
+  // -> "in 3 hours"
+
+  let now = timestamp.system_time()
+  timeago.time_ago(timestamp.add(now, duration.hours(3)), timestamp.add(now, duration.hours(3)), None)
+  // -> "just now"
 }
 ```
 
