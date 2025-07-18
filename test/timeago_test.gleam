@@ -3,7 +3,6 @@ import gleam/list
 import gleam/option.{None, Some}
 import gleam/time/timestamp
 import gleeunit
-import gleeunit/should
 import timeago
 
 pub fn main() -> Nil {
@@ -25,8 +24,8 @@ fn range(start: Int, end: Int) -> List(Int) {
 // Verifies that when no reference time is provided, system time is used
 pub fn no_reference_time_test() {
   let now = timestamp.system_time()
-  timeago.time_ago(now, None, None)
-  |> should.equal("just now")
+  let result = timeago.time_ago(now, None, None)
+  assert result == "just now"
 }
 
 // =============================================================================
@@ -40,8 +39,8 @@ pub fn past_subsecond_test() {
     let past = timestamp.from_unix_seconds_and_nanoseconds(1_546_300_800, 0)
     let now =
       timestamp.from_unix_seconds_and_nanoseconds(1_546_300_800, ms * 1_000_000)
-    timeago.time_ago(past, Some(now), None)
-    |> should.equal("just now")
+    let result = timeago.time_ago(past, Some(now), None)
+    assert result == "just now"
   })
 }
 
@@ -54,8 +53,8 @@ pub fn past_seconds_test() {
       1 -> "1 second ago"
       n -> int.to_string(n) <> " seconds ago"
     }
-    timeago.time_ago(past, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(past, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -68,8 +67,8 @@ pub fn past_minutes_test() {
       1 -> "1 minute ago"
       n -> int.to_string(n) <> " minutes ago"
     }
-    timeago.time_ago(past, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(past, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -82,8 +81,8 @@ pub fn past_hours_test() {
       1 -> "1 hour ago"
       n -> int.to_string(n) <> " hours ago"
     }
-    timeago.time_ago(past, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(past, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -96,8 +95,8 @@ pub fn past_days_test() {
       1 -> "1 day ago"
       n -> int.to_string(n) <> " days ago"
     }
-    timeago.time_ago(past, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(past, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -110,8 +109,8 @@ pub fn past_weeks_test() {
       1 -> "1 week ago"
       n -> int.to_string(n) <> " weeks ago"
     }
-    timeago.time_ago(past, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(past, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -125,8 +124,8 @@ pub fn past_months_test() {
       1 -> "1 month ago"
       n -> int.to_string(n) <> " months ago"
     }
-    timeago.time_ago(past, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(past, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -139,8 +138,8 @@ pub fn past_years_test() {
       1 -> "1 year ago"
       n -> int.to_string(n) <> " years ago"
     }
-    timeago.time_ago(past, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(past, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -156,8 +155,8 @@ pub fn future_subsecond_test() {
     let future =
       timestamp.from_unix_seconds_and_nanoseconds(1_546_300_800, ms * 1_000_000)
     echo timestamp.difference(future, now)
-    timeago.time_ago(future, Some(now), None)
-    |> should.equal("just now")
+    let result = timeago.time_ago(future, Some(now), None)
+    assert result == "just now"
   })
 }
 
@@ -170,8 +169,8 @@ pub fn future_seconds_test() {
       1 -> "in 1 second"
       n -> "in " <> int.to_string(n) <> " seconds"
     }
-    timeago.time_ago(future, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(future, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -184,8 +183,8 @@ pub fn future_minutes_test() {
       1 -> "in 1 minute"
       n -> "in " <> int.to_string(n) <> " minutes"
     }
-    timeago.time_ago(future, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(future, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -198,8 +197,8 @@ pub fn future_hours_test() {
       1 -> "in 1 hour"
       n -> "in " <> int.to_string(n) <> " hours"
     }
-    timeago.time_ago(future, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(future, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -212,8 +211,8 @@ pub fn future_days_test() {
       1 -> "in 1 day"
       n -> "in " <> int.to_string(n) <> " days"
     }
-    timeago.time_ago(future, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(future, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -226,8 +225,8 @@ pub fn future_weeks_test() {
       1 -> "in 1 week"
       n -> "in " <> int.to_string(n) <> " weeks"
     }
-    timeago.time_ago(future, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(future, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -241,8 +240,8 @@ pub fn future_months_test() {
       1 -> "in 1 month"
       n -> "in " <> int.to_string(n) <> " months"
     }
-    timeago.time_ago(future, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(future, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -255,8 +254,8 @@ pub fn future_years_test() {
       1 -> "in 1 year"
       n -> "in " <> int.to_string(n) <> " years"
     }
-    timeago.time_ago(future, Some(now), None)
-    |> should.equal(expected)
+    let result = timeago.time_ago(future, Some(now), None)
+    assert result == expected
   })
 }
 
@@ -274,37 +273,37 @@ pub fn rfc3339_test_cases() {
   let assert Ok(t10) = timestamp.parse_rfc3339("2020-01-01T00:00:00.000Z")
 
   // Subsecond differences should be "just now"
-  timeago.time_ago(t1, Some(t2), None)
-  |> should.equal("just now")
+  let result1 = timeago.time_ago(t1, Some(t2), None)
+  assert result1 == "just now"
 
-  timeago.time_ago(t1, Some(t3), None)
-  |> should.equal("just now")
+  let result2 = timeago.time_ago(t1, Some(t3), None)
+  assert result2 == "just now"
 
   // 1 second difference
-  timeago.time_ago(t1, Some(t4), None)
-  |> should.equal("1 second ago")
+  let result3 = timeago.time_ago(t1, Some(t4), None)
+  assert result3 == "1 second ago"
 
   // 59.999 seconds
-  timeago.time_ago(t1, Some(t5), None)
-  |> should.equal("59 seconds ago")
+  let result4 = timeago.time_ago(t1, Some(t5), None)
+  assert result4 == "59 seconds ago"
 
   // 1 minute
-  timeago.time_ago(t1, Some(t6), None)
-  |> should.equal("1 minute ago")
+  let result5 = timeago.time_ago(t1, Some(t6), None)
+  assert result5 == "1 minute ago"
 
   // 1 hour
-  timeago.time_ago(t1, Some(t7), None)
-  |> should.equal("1 hour ago")
+  let result6 = timeago.time_ago(t1, Some(t7), None)
+  assert result6 == "1 hour ago"
 
   // 1 day
-  timeago.time_ago(t1, Some(t8), None)
-  |> should.equal("1 day ago")
+  let result7 = timeago.time_ago(t1, Some(t8), None)
+  assert result7 == "1 day ago"
 
   // 1 month (31 days in January)
-  timeago.time_ago(t1, Some(t9), None)
-  |> should.equal("1 month ago")
+  let result8 = timeago.time_ago(t1, Some(t9), None)
+  assert result8 == "1 month ago"
 
   // 1 year
-  timeago.time_ago(t1, Some(t10), None)
-  |> should.equal("1 year ago")
+  let result9 = timeago.time_ago(t1, Some(t10), None)
+  assert result9 == "1 year ago"
 }
