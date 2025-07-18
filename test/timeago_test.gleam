@@ -87,9 +87,9 @@ pub fn past_hours_test() {
   })
 }
 
-// Returns "N day(s) ago" if the time difference is < 1 month (30.5 days)
+// Returns "N day(s) ago" if the time difference is < 1 week
 pub fn past_days_test() {
-  list.each(range(1, 30), fn(i) {
+  list.each(range(1, 6), fn(i) {
     let past = timestamp.from_unix_seconds(1_546_300_800)
     let now = timestamp.from_unix_seconds(1_546_300_800 + i * 86_400)
     let expected = case i {
@@ -101,12 +101,26 @@ pub fn past_days_test() {
   })
 }
 
+// Returns "N week(s) ago" if the time difference is < 1 month (30.4375 days)
+pub fn past_weeks_test() {
+  list.each(range(1, 4), fn(i) {
+    let past = timestamp.from_unix_seconds(1_546_300_800)
+    let now = timestamp.from_unix_seconds(1_546_300_800 + i * 604_800)
+    let expected = case i {
+      1 -> "1 week ago"
+      n -> int.to_string(n) <> " weeks ago"
+    }
+    timeago.time_ago(past, Some(now), None)
+    |> should.equal(expected)
+  })
+}
+
 // Returns "N month(s) ago" if the time difference is < 1 year
 pub fn past_months_test() {
   list.each(range(1, 11), fn(i) {
     let past = timestamp.from_unix_seconds(1_546_300_800)
-    // Using 30.5 days per month = 2,635,200 seconds
-    let now = timestamp.from_unix_seconds(1_546_300_800 + i * 2_635_200)
+    // Using 30.4375 days per month = 2,629,800 seconds
+    let now = timestamp.from_unix_seconds(1_546_300_800 + i * 2_629_800)
     let expected = case i {
       1 -> "1 month ago"
       n -> int.to_string(n) <> " months ago"
@@ -120,7 +134,7 @@ pub fn past_months_test() {
 pub fn past_years_test() {
   list.each(range(1, 20), fn(i) {
     let past = timestamp.from_unix_seconds(1_546_300_800)
-    let now = timestamp.from_unix_seconds(1_546_300_800 + i * 31_536_000)
+    let now = timestamp.from_unix_seconds(1_546_300_800 + i * 31_557_600)
     let expected = case i {
       1 -> "1 year ago"
       n -> int.to_string(n) <> " years ago"
@@ -189,9 +203,9 @@ pub fn future_hours_test() {
   })
 }
 
-// Returns "in N day(s)" if the time difference is < 1 month (30.5 days)
+// Returns "in N day(s)" if the time difference is < 1 week
 pub fn future_days_test() {
-  list.each(range(1, 30), fn(i) {
+  list.each(range(1, 6), fn(i) {
     let now = timestamp.from_unix_seconds(1_546_300_800)
     let future = timestamp.from_unix_seconds(1_546_300_800 + i * 86_400)
     let expected = case i {
@@ -203,12 +217,26 @@ pub fn future_days_test() {
   })
 }
 
+// Returns "in N week(s)" if the time difference is < 1 month (30.4375 days)
+pub fn future_weeks_test() {
+  list.each(range(1, 4), fn(i) {
+    let now = timestamp.from_unix_seconds(1_546_300_800)
+    let future = timestamp.from_unix_seconds(1_546_300_800 + i * 604_800)
+    let expected = case i {
+      1 -> "in 1 week"
+      n -> "in " <> int.to_string(n) <> " weeks"
+    }
+    timeago.time_ago(future, Some(now), None)
+    |> should.equal(expected)
+  })
+}
+
 // Returns "in N month(s)" if the time difference is < 1 year
 pub fn future_months_test() {
   list.each(range(1, 11), fn(i) {
     let now = timestamp.from_unix_seconds(1_546_300_800)
-    // Using 30.5 days per month = 2,635,200 seconds
-    let future = timestamp.from_unix_seconds(1_546_300_800 + i * 2_635_200)
+    // Using 30.4375 days per month = 2,629,800 seconds
+    let future = timestamp.from_unix_seconds(1_546_300_800 + i * 2_629_800)
     let expected = case i {
       1 -> "in 1 month"
       n -> "in " <> int.to_string(n) <> " months"
@@ -222,7 +250,7 @@ pub fn future_months_test() {
 pub fn future_years_test() {
   list.each(range(1, 20), fn(i) {
     let now = timestamp.from_unix_seconds(1_546_300_800)
-    let future = timestamp.from_unix_seconds(1_546_300_800 + i * 31_536_000)
+    let future = timestamp.from_unix_seconds(1_546_300_800 + i * 31_557_600)
     let expected = case i {
       1 -> "in 1 year"
       n -> "in " <> int.to_string(n) <> " years"
