@@ -244,3 +244,61 @@ pub fn fr(tense: Tense, unit: Unit, amount: Int) -> String {
     Future, Year, a -> "dans %d ans" |> replace_percent_d_with_int(a)
   }
 }
+
+pub fn pl(tense: Tense, unit: Unit, amount: Int) -> String {
+  case tense, unit, amount {
+    _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "teraz"
+    Past, Second, 1 -> "sekundę temu"
+    Past, Second, amount if amount < 5 && amount != 0 ->
+      "%d sekundy temu" |> replace_percent_d_with_int(amount)
+    Past, Second, _ -> "%d sekund temu" |> replace_percent_d_with_int(amount)
+    Past, Minute, 1 -> "minutę temu"
+    Past, Minute, amount if amount < 5 && amount != 0 ->
+      "%d minuty temu" |> replace_percent_d_with_int(amount)
+    Past, Minute, _ -> "%d minut temu" |> replace_percent_d_with_int(amount)
+    Past, Hour, 1 -> "godzinę temu"
+    Past, Hour, amount if amount < 5 && amount != 0 ->
+      "%d godziny temu" |> replace_percent_d_with_int(amount)
+    Past, Hour, _ -> "%d godzin temu" |> replace_percent_d_with_int(amount)
+    Past, Day, 1 -> "wczoraj"
+    Past, Day, _ -> "%d dni temu" |> replace_percent_d_with_int(amount)
+    Past, Week, 1 -> "tydzień temu"
+    Past, Week, amount if amount < 5 && amount != 0 ->
+      "%d tygodnie temu" |> replace_percent_d_with_int(amount)
+    Past, Week, _ -> "%d tygodni temu" |> replace_percent_d_with_int(amount)
+    Past, Month, 1 -> "miesiąc temu"
+    Past, Month, amount if amount < 5 && amount != 0 ->
+      "%d miesiące temu" |> replace_percent_d_with_int(amount)
+    Past, Month, _ -> "%d miesięcy temu" |> replace_percent_d_with_int(amount)
+    Past, Year, 1 -> "rok temu"
+    Past, Year, amount if amount < 5 && amount != 0 ->
+      "%d lata temu" |> replace_percent_d_with_int(amount)
+    Past, Year, _ -> "%d lat temu" |> replace_percent_d_with_int(amount)
+    Future, Second, 1 -> "za sekundę"
+    Future, Second, amount if amount < 5 ->
+      "za %d sekundy" |> replace_percent_d_with_int(amount)
+    Future, Second, _ -> "za %d sekund" |> replace_percent_d_with_int(amount)
+    Future, Minute, 1 -> "za minutę"
+    Future, Minute, amount if amount < 5 ->
+      "za %d minuty" |> replace_percent_d_with_int(amount)
+    Future, Minute, _ -> "za %d minut" |> replace_percent_d_with_int(amount)
+    Future, Hour, 1 -> "za godzinę"
+    Future, Hour, amount if amount < 5 ->
+      "za %d godziny" |> replace_percent_d_with_int(amount)
+    Future, Hour, _ -> "za %d godzin" |> replace_percent_d_with_int(amount)
+    Future, Day, 1 -> "jutro"
+    Future, Day, _ -> "za %d dni" |> replace_percent_d_with_int(amount)
+    Future, Week, 1 -> "za tydzień"
+    Future, Week, amount if amount < 5 ->
+      "za %d tygodnie" |> replace_percent_d_with_int(amount)
+    Future, Week, _ -> "za %d tygodni" |> replace_percent_d_with_int(amount)
+    Future, Month, 1 -> "za miesiąc"
+    Future, Month, amount if amount < 5 ->
+      "za %d miesiące" |> replace_percent_d_with_int(amount)
+    Future, Month, _ -> "za %d miesięcy" |> replace_percent_d_with_int(amount)
+    Future, Year, 1 -> "za rok"
+    Future, Year, amount if amount < 5 ->
+      "za %d lata" |> replace_percent_d_with_int(amount)
+    Future, Year, _ -> "za %d lat" |> replace_percent_d_with_int(amount)
+  }
+}
