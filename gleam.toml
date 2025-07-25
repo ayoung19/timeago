@@ -4,7 +4,7 @@ version = "2.0.0"
 # Fill out these fields if you intend to generate HTML documentation or publish
 # your project to the Hex package manager.
 #
-description = "A lightweight library for describing time differences in a human readable format (e.g., '1 minute ago')."
+description = "A lightweight Gleam library for formatting timestamps as human-readable relative time strings (e.g., '5 minutes ago', 'in 2 hours') with support for multiple locales."
 licences = ["Apache-2.0"]
 repository = { type = "github", user = "ayoung19", repo = "timeago" }
 # links = [{ title = "Website", href = "" }]
