@@ -8,7 +8,7 @@ A localized library for formatting timestamps as human-readable relative time st
 ## Installation
 
 ```sh
-gleam add timeago@1
+gleam add timeago@2
 ```
 
 ## Usage
