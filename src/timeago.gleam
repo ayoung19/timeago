@@ -335,3 +335,5 @@ pub fn pl(tense: Tense, unit: Unit, amount: Int) -> String {
     Future, Year, amount if amount < 5 ->
       "za %d lata" |> replace_percent_d_with_int(amount)
     Future, Year, _ -> "za %d lat" |> replace_percent_d_with_int(amount)
+  }
+}
