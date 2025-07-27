@@ -244,3 +244,38 @@ pub fn fr(tense: Tense, unit: Unit, amount: Int) -> String {
     Future, Year, a -> "dans %d ans" |> replace_percent_d_with_int(a)
   }
 }
+
+/// Translations for Brazilian Portuguese.
+pub fn pt_br(tense: Tense, unit: Unit, amount: Int) -> String {
+  case tense, unit, amount {
+    _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "agora mesmo"
+    Past, Second, 1 -> "1 segundo atrás"
+    Past, Second, a -> "%d segundos atrás" |> replace_percent_d_with_int(a)
+    Past, Minute, 1 -> "1 minuto atrás"
+    Past, Minute, a -> "%d minutos atrás" |> replace_percent_d_with_int(a)
+    Past, Hour, 1 -> "1 hora atrás"
+    Past, Hour, a -> "%d horas atrás" |> replace_percent_d_with_int(a)
+    Past, Day, 1 -> "1 dia atrás"
+    Past, Day, a -> "%d dias atrás" |> replace_percent_d_with_int(a)
+    Past, Week, 1 -> "1 semana atrás"
+    Past, Week, a -> "%d semanas atrás" |> replace_percent_d_with_int(a)
+    Past, Month, 1 -> "1 mês atrás"
+    Past, Month, a -> "%d meses atrás" |> replace_percent_d_with_int(a)
+    Past, Year, 1 -> "1 ano atrás"
+    Past, Year, a -> "%d anos atrás" |> replace_percent_d_with_int(a)
+    Future, Second, 1 -> "daqui a 1 segundo"
+    Future, Second, a -> "daqui a %d segundos" |> replace_percent_d_with_int(a)
+    Future, Minute, 1 -> "daqui a 1 minuto"
+    Future, Minute, a -> "daqui a %d minutos" |> replace_percent_d_with_int(a)
+    Future, Hour, 1 -> "daqui a 1 hora"
+    Future, Hour, a -> "daqui a %d horas" |> replace_percent_d_with_int(a)
+    Future, Day, 1 -> "daqui a 1 dia"
+    Future, Day, a -> "daqui a %d dias" |> replace_percent_d_with_int(a)
+    Future, Week, 1 -> "daqui a 1 semana"
+    Future, Week, a -> "daqui a %d semanas" |> replace_percent_d_with_int(a)
+    Future, Month, 1 -> "daqui a 1 mês"
+    Future, Month, a -> "daqui a %d meses" |> replace_percent_d_with_int(a)
+    Future, Year, 1 -> "daqui a 1 ano"
+    Future, Year, a -> "daqui a %d anos" |> replace_percent_d_with_int(a)
+  }
+}
