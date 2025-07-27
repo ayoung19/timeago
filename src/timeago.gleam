@@ -279,3 +279,38 @@ pub fn pt_br(tense: Tense, unit: Unit, amount: Int) -> String {
     Future, Year, a -> "daqui a %d anos" |> replace_percent_d_with_int(a)
   }
 }
+
+/// Translations for German
+pub fn de(tense: Tense, unit: Unit, amount: Int) -> String {
+  case tense, unit, amount {
+    _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "jetzt"
+    Past, Second, 1 -> "vor einer Sekunde"
+    Past, Second, a -> "vor %d Sekunden" |> replace_percent_d_with_int(a)
+    Past, Minute, 1 -> "vor einer Minute"
+    Past, Minute, a -> "vor %d Minuten" |> replace_percent_d_with_int(a)
+    Past, Hour, 1 -> "vor einer Stunde"
+    Past, Hour, a -> "vor %d Stunden" |> replace_percent_d_with_int(a)
+    Past, Day, 1 -> "vor einem Tag"
+    Past, Day, a -> "vor %d Tagen" |> replace_percent_d_with_int(a)
+    Past, Week, 1 -> "vor einer Woche"
+    Past, Week, a -> "vor %d Wochen" |> replace_percent_d_with_int(a)
+    Past, Month, 1 -> "vor einem Monat"
+    Past, Month, a -> "vor %d Monaten" |> replace_percent_d_with_int(a)
+    Past, Year, 1 -> "vor einem Jahr"
+    Past, Year, a -> "vor %d Jahren" |> replace_percent_d_with_int(a)
+    Future, Second, 1 -> "in einer Sekunde"
+    Future, Second, a -> "in %d Sekunden" |> replace_percent_d_with_int(a)
+    Future, Minute, 1 -> "in einer Minute"
+    Future, Minute, a -> "in %d Minuten" |> replace_percent_d_with_int(a)
+    Future, Hour, 1 -> "in einer Stunde"
+    Future, Hour, a -> "in %d Stunden" |> replace_percent_d_with_int(a)
+    Future, Day, 1 -> "in einem Tag"
+    Future, Day, a -> "in %d Tagen" |> replace_percent_d_with_int(a)
+    Future, Week, 1 -> "in einer Woche"
+    Future, Week, a -> "in %d Wochen" |> replace_percent_d_with_int(a)
+    Future, Month, 1 -> "in einem Monat"
+    Future, Month, a -> "in %d Monaten" |> replace_percent_d_with_int(a)
+    Future, Year, 1 -> "in einem Jahr"
+    Future, Year, a -> "in %d Jahren" |> replace_percent_d_with_int(a)
+  }
+}
