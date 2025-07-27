@@ -281,7 +281,7 @@ pub fn pt_br(tense: Tense, unit: Unit, amount: Int) -> String {
 }
 
 /// Translations for German
-pub fn de(tense: Tense, unit: Unit, amount: Int) -> String {
+pub fn de_de(tense: Tense, unit: Unit, amount: Int) -> String {
   case tense, unit, amount {
     _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "jetzt"
     Past, Second, 1 -> "vor einer Sekunde"
