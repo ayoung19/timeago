@@ -263,19 +263,19 @@ pub fn pt_br(tense: Tense, unit: Unit, amount: Int) -> String {
     Past, Month, a -> "%d meses atrás" |> replace_percent_d_with_int(a)
     Past, Year, 1 -> "1 ano atrás"
     Past, Year, a -> "%d anos atrás" |> replace_percent_d_with_int(a)
-    Future, Second, 1 -> "em 1 segundo"
-    Future, Second, a -> "em %d segundos" |> replace_percent_d_with_int(a)
-    Future, Minute, 1 -> "em 1 minuto"
-    Future, Minute, a -> "em %d minutos" |> replace_percent_d_with_int(a)
-    Future, Hour, 1 -> "em 1 hora"
-    Future, Hour, a -> "em %d horas" |> replace_percent_d_with_int(a)
-    Future, Day, 1 -> "em 1 dia"
-    Future, Day, a -> "em %d dias" |> replace_percent_d_with_int(a)
-    Future, Week, 1 -> "em 1 semana"
-    Future, Week, a -> "em %d semanas" |> replace_percent_d_with_int(a)
-    Future, Month, 1 -> "em 1 mês"
-    Future, Month, a -> "em %d meses" |> replace_percent_d_with_int(a)
-    Future, Year, 1 -> "em 1 ano"
-    Future, Year, a -> "em %d anos" |> replace_percent_d_with_int(a)
+    Future, Second, 1 -> "daqui a 1 segundo"
+    Future, Second, a -> "daqui a %d segundos" |> replace_percent_d_with_int(a)
+    Future, Minute, 1 -> "daqui a 1 minuto"
+    Future, Minute, a -> "daqui a %d minutos" |> replace_percent_d_with_int(a)
+    Future, Hour, 1 -> "daqui a 1 hora"
+    Future, Hour, a -> "daqui a %d horas" |> replace_percent_d_with_int(a)
+    Future, Day, 1 -> "daqui a 1 dia"
+    Future, Day, a -> "daqui a %d dias" |> replace_percent_d_with_int(a)
+    Future, Week, 1 -> "daqui a 1 semana"
+    Future, Week, a -> "daqui a %d semanas" |> replace_percent_d_with_int(a)
+    Future, Month, 1 -> "daqui a 1 mês"
+    Future, Month, a -> "daqui a %d meses" |> replace_percent_d_with_int(a)
+    Future, Year, 1 -> "daqui a 1 ano"
+    Future, Year, a -> "daqui a %d anos" |> replace_percent_d_with_int(a)
   }
 }
