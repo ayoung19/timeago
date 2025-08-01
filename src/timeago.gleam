@@ -1,16 +1,16 @@
 //// A library for formatting timestamps as human-readable relative time strings.
-//// 
+////
 //// This library provides a simple way to convert timestamps into relative time
 //// expressions like "5 minutes ago" or "in 2 hours". It supports multiple
 //// locales and allows customization of the reference time.
-//// 
+////
 //// ## Basic Usage
-//// 
+////
 //// ```gleam
 //// import gleam/time/duration
 //// import gleam/time/timestamp
 //// import timeago
-//// 
+////
 //// // Format a timestamp from 5 minutes ago
 //// let past = timestamp.add(timestamp.system_time(), duration.minutes(-5))
 //// timeago.new() |> timeago.format(past)
@@ -26,7 +26,7 @@ import gleam/time/duration.{
 import gleam/time/timestamp.{type Timestamp}
 
 /// Configuration for formatting relative time strings.
-/// 
+///
 /// Encapsulates the reference time and locale settings used when formatting
 /// timestamps. Use the builder pattern with `new()`, `with_now()`, and
 /// `with_locale()` to configure instances.
@@ -35,17 +35,17 @@ pub opaque type TimeAgo {
 }
 
 /// Creates a new TimeAgo formatter with default settings.
-/// 
+///
 /// Uses the current system time as the reference point and the English (US)
 /// locale for formatting.
-/// 
+///
 /// ## Examples
-/// 
+///
 /// ```gleam
 /// import gleam/time/duration
 /// import gleam/time/timestamp
 /// import timeago
-/// 
+///
 /// timeago.new()
 /// |> timeago.format(timestamp.add(timestamp.system_time(), duration.minutes(-5)))
 /// // -> "5 minutes ago"
@@ -55,20 +55,20 @@ pub fn new() -> TimeAgo {
 }
 
 /// Sets a custom reference time for calculating relative differences.
-/// 
+///
 /// By default, TimeAgo uses the current system time when created. This allows
 /// you to specify a different reference point for testing, calculating from
 /// specific moments, or maintaining consistency across operations.
-/// 
+///
 /// ## Examples
-/// 
+///
 /// ```gleam
 /// import gleam/time/timestamp
 /// import timeago
-/// 
+///
 /// let assert Ok(reference) = timestamp.parse_rfc3339("2024-01-01T12:00:00Z")
 /// let assert Ok(past) = timestamp.parse_rfc3339("2024-01-01T11:00:00Z")
-/// 
+///
 /// timeago.new()
 /// |> timeago.with_now(reference)
 /// |> timeago.format(past)
@@ -79,17 +79,17 @@ pub fn with_now(time_ago: TimeAgo, now: Timestamp) -> TimeAgo {
 }
 
 /// Sets a custom locale function for formatting output strings.
-/// 
+///
 /// The locale function determines how relative time is expressed in different
 /// languages.
-/// 
+///
 /// ## Examples
-/// 
+///
 /// ```gleam
 /// import gleam/time/duration
 /// import gleam/time/timestamp
 /// import timeago
-/// 
+///
 /// // Using the built-in French locale
 /// timeago.new()
 /// |> timeago.with_locale(timeago.fr)
@@ -101,41 +101,41 @@ pub fn with_locale(time_ago: TimeAgo, locale: Locale) -> TimeAgo {
 }
 
 /// Formats a timestamp as a human-readable relative time string.
-/// 
+///
 /// Calculates the difference between the given timestamp and the reference time
 /// (set via `with_now()` or defaulting to the current time), then formats it
 /// using the configured locale.
-/// 
+///
 /// The output automatically adjusts for singular/plural forms and selects
 /// appropriate time units based on the magnitude of the difference.
-/// 
+///
 /// ## Examples
-/// 
+///
 /// ```gleam
 /// import gleam/time/duration
 /// import gleam/time/timestamp
 /// import timeago
-/// 
+///
 /// let now = timestamp.system_time()
-/// 
+///
 /// // Past times
 /// timeago.new()
 /// |> timeago.format(timestamp.add(now, duration.seconds(-5)))
 /// // -> "5 seconds ago"
-/// 
+///
 /// timeago.new()
 /// |> timeago.format(timestamp.add(now, duration.minutes(-1)))
 /// // -> "1 minute ago"
-/// 
+///
 /// // Future times
 /// timeago.new()
 /// |> timeago.format(timestamp.add(now, duration.hours(2)))
 /// // -> "in 2 hours"
-/// 
+///
 /// timeago.new()
 /// |> timeago.format(timestamp.add(now, duration.days(1)))
 /// // -> "in 1 day"
-/// 
+///
 /// timeago.new()
 /// |> timeago.format(timestamp.add(now, duration.milliseconds(-500)))
 /// // -> "just now"
@@ -153,7 +153,7 @@ pub fn format(time_ago: TimeAgo, timestamp: Timestamp) -> String {
 }
 
 /// Represents the temporal direction of a time difference.
-/// 
+///
 /// Used to determine whether a timestamp is in the past or future relative
 /// to a reference time.
 pub type Tense {
@@ -167,7 +167,7 @@ pub type Tense {
 }
 
 /// A function that formats relative time strings for a specific language and locale.
-/// 
+///
 /// Receives tense (past/future), unit (seconds, minutes, etc.), and amount,
 /// then returns a formatted string like "5 minutes ago" or "in 2 hours".
 pub type Locale =
@@ -177,6 +177,8 @@ fn replace_percent_d_with_int(s: String, i: Int) -> String {
   string.replace(s, "%d", int.to_string(i))
 }
 
+/// Translations for American English.
+///
 pub fn en_us(tense: Tense, unit: Unit, amount: Int) -> String {
   case tense, unit, amount {
     _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "just now"
@@ -211,6 +213,8 @@ pub fn en_us(tense: Tense, unit: Unit, amount: Int) -> String {
   }
 }
 
+/// Translations for French.
+///
 pub fn fr(tense: Tense, unit: Unit, amount: Int) -> String {
   case tense, unit, amount {
     _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "à l'instant"
@@ -246,6 +250,7 @@ pub fn fr(tense: Tense, unit: Unit, amount: Int) -> String {
 }
 
 /// Translations for Brazilian Portuguese.
+///
 pub fn pt_br(tense: Tense, unit: Unit, amount: Int) -> String {
   case tense, unit, amount {
     _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "agora mesmo"
@@ -277,6 +282,114 @@ pub fn pt_br(tense: Tense, unit: Unit, amount: Int) -> String {
     Future, Month, a -> "daqui a %d meses" |> replace_percent_d_with_int(a)
     Future, Year, 1 -> "daqui a 1 ano"
     Future, Year, a -> "daqui a %d anos" |> replace_percent_d_with_int(a)
+  }
+}
+
+/// Translations for German.
+///
+pub fn de_de(tense: Tense, unit: Unit, amount: Int) -> String {
+  case tense, unit, amount {
+    _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "jetzt"
+    Past, Second, 1 -> "vor einer Sekunde"
+    Past, Second, a -> "vor %d Sekunden" |> replace_percent_d_with_int(a)
+    Past, Minute, 1 -> "vor einer Minute"
+    Past, Minute, a -> "vor %d Minuten" |> replace_percent_d_with_int(a)
+    Past, Hour, 1 -> "vor einer Stunde"
+    Past, Hour, a -> "vor %d Stunden" |> replace_percent_d_with_int(a)
+    Past, Day, 1 -> "vor einem Tag"
+    Past, Day, a -> "vor %d Tagen" |> replace_percent_d_with_int(a)
+    Past, Week, 1 -> "vor einer Woche"
+    Past, Week, a -> "vor %d Wochen" |> replace_percent_d_with_int(a)
+    Past, Month, 1 -> "vor einem Monat"
+    Past, Month, a -> "vor %d Monaten" |> replace_percent_d_with_int(a)
+    Past, Year, 1 -> "vor einem Jahr"
+    Past, Year, a -> "vor %d Jahren" |> replace_percent_d_with_int(a)
+    Future, Second, 1 -> "in einer Sekunde"
+    Future, Second, a -> "in %d Sekunden" |> replace_percent_d_with_int(a)
+    Future, Minute, 1 -> "in einer Minute"
+    Future, Minute, a -> "in %d Minuten" |> replace_percent_d_with_int(a)
+    Future, Hour, 1 -> "in einer Stunde"
+    Future, Hour, a -> "in %d Stunden" |> replace_percent_d_with_int(a)
+    Future, Day, 1 -> "in einem Tag"
+    Future, Day, a -> "in %d Tagen" |> replace_percent_d_with_int(a)
+    Future, Week, 1 -> "in einer Woche"
+    Future, Week, a -> "in %d Wochen" |> replace_percent_d_with_int(a)
+    Future, Month, 1 -> "in einem Monat"
+    Future, Month, a -> "in %d Monaten" |> replace_percent_d_with_int(a)
+    Future, Year, 1 -> "in einem Jahr"
+    Future, Year, a -> "in %d Jahren" |> replace_percent_d_with_int(a)
+  }
+}
+
+/// Translations for Italian.
+///
+pub fn it_it(tense: Tense, unit: Unit, amount: Int) -> String {
+  case tense, unit, amount {
+    _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "proprio adesso"
+    Past, Second, 1 -> "1 secondo fa"
+    Past, Second, a -> "%d secondi fa" |> replace_percent_d_with_int(a)
+    Past, Minute, 1 -> "1 minuto fa"
+    Past, Minute, a -> "%d minuti fa" |> replace_percent_d_with_int(a)
+    Past, Hour, 1 -> "1 ora fa"
+    Past, Hour, a -> "%d ore fa" |> replace_percent_d_with_int(a)
+    Past, Day, 1 -> "1 giorno fa"
+    Past, Day, a -> "%d giorni fa" |> replace_percent_d_with_int(a)
+    Past, Week, 1 -> "1 settimana fa"
+    Past, Week, a -> "%d settimane fa" |> replace_percent_d_with_int(a)
+    Past, Month, 1 -> "1 mese fa"
+    Past, Month, a -> "%d mesi fa" |> replace_percent_d_with_int(a)
+    Past, Year, 1 -> "1 anno fa"
+    Past, Year, a -> "%d anni fa" |> replace_percent_d_with_int(a)
+    Future, Second, 1 -> "fra 1 secondo"
+    Future, Second, a -> "fra %d secondi" |> replace_percent_d_with_int(a)
+    Future, Minute, 1 -> "fra 1 minuto"
+    Future, Minute, a -> "fra %d minuti" |> replace_percent_d_with_int(a)
+    Future, Hour, 1 -> "fra 1 ora"
+    Future, Hour, a -> "fra %d ore" |> replace_percent_d_with_int(a)
+    Future, Day, 1 -> "fra 1 giorno"
+    Future, Day, a -> "fra %d giorni" |> replace_percent_d_with_int(a)
+    Future, Week, 1 -> "fra 1 settimana"
+    Future, Week, a -> "fra %d settimane" |> replace_percent_d_with_int(a)
+    Future, Month, 1 -> "fra 1 mese"
+    Future, Month, a -> "fra %d mesi" |> replace_percent_d_with_int(a)
+    Future, Year, 1 -> "fra 1 anno"
+    Future, Year, a -> "fra %d anni" |> replace_percent_d_with_int(a)
+  }
+}
+
+/// Translations for Spanish.
+///
+pub fn es_es(tense: Tense, unit: Unit, amount: Int) -> String {
+  case tense, unit, amount {
+    _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "ahora mismo"
+    Past, Second, 1 -> "hace 1 segundo"
+    Past, Second, a -> "hace %d segundos" |> replace_percent_d_with_int(a)
+    Past, Minute, 1 -> "hace 1 minuto"
+    Past, Minute, a -> "hace %d minutos" |> replace_percent_d_with_int(a)
+    Past, Hour, 1 -> "hace 1 hora"
+    Past, Hour, a -> "hace %d horas" |> replace_percent_d_with_int(a)
+    Past, Day, 1 -> "hace 1 día"
+    Past, Day, a -> "hace %d días" |> replace_percent_d_with_int(a)
+    Past, Week, 1 -> "hace 1 semana"
+    Past, Week, a -> "hace %d semanas" |> replace_percent_d_with_int(a)
+    Past, Month, 1 -> "hace 1 mes"
+    Past, Month, a -> "hace %d meses" |> replace_percent_d_with_int(a)
+    Past, Year, 1 -> "hace 1 año"
+    Past, Year, a -> "hace %d años" |> replace_percent_d_with_int(a)
+    Future, Second, 1 -> "en 1 segundo"
+    Future, Second, a -> "en %d segundos" |> replace_percent_d_with_int(a)
+    Future, Minute, 1 -> "en 1 minuto"
+    Future, Minute, a -> "en %d minutos" |> replace_percent_d_with_int(a)
+    Future, Hour, 1 -> "en 1 hora"
+    Future, Hour, a -> "en %d horas" |> replace_percent_d_with_int(a)
+    Future, Day, 1 -> "en 1 día"
+    Future, Day, a -> "en %d días" |> replace_percent_d_with_int(a)
+    Future, Week, 1 -> "en 1 semana"
+    Future, Week, a -> "en %d semanas" |> replace_percent_d_with_int(a)
+    Future, Month, 1 -> "en 1 mes"
+    Future, Month, a -> "en %d meses" |> replace_percent_d_with_int(a)
+    Future, Year, 1 -> "en 1 año"
+    Future, Year, a -> "en %d años" |> replace_percent_d_with_int(a)
   }
 }
 
