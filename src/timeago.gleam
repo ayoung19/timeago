@@ -392,3 +392,147 @@ pub fn es_es(tense: Tense, unit: Unit, amount: Int) -> String {
     Future, Year, a -> "en %d años" |> replace_percent_d_with_int(a)
   }
 }
+
+/// Translations for Polish.
+///
+pub fn pl_pl(tense: Tense, unit: Unit, amount: Int) -> String {
+  case tense, unit, amount {
+    _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "przed chwilą"
+    Past, Second, 1 -> "1 sekundę temu"
+    Past, Second, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "%d sekund temu"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "%d sekundy temu"
+            _ -> "%d sekund temu"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Past, Minute, 1 -> "1 minutę temu"
+    Past, Minute, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "%d minut temu"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "%d minuty temu"
+            _ -> "%d minut temu"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Past, Hour, 1 -> "1 godzinę temu"
+    Past, Hour, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "%d godzin temu"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "%d godziny temu"
+            _ -> "%d godzin temu"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Past, Day, 1 -> "1 dzień temu"
+    Past, Day, a -> "%d dni temu" |> replace_percent_d_with_int(a)
+    Past, Week, 1 -> "1 tydzień temu"
+    Past, Week, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "%d tygodni temu"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "%d tygodnie temu"
+            _ -> "%d tygodni temu"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Past, Month, 1 -> "1 miesiąc temu"
+    Past, Month, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "%d miesięcy temu"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "%d miesiące temu"
+            _ -> "%d miesięcy temu"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Past, Year, 1 -> "1 rok temu"
+    Past, Year, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "%d lat temu"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "%d lata temu"
+            _ -> "%d lat temu"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Future, Second, 1 -> "za 1 sekundę"
+    Future, Second, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "za %d sekund"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "za %d sekundy"
+            _ -> "za %d sekund"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Future, Minute, 1 -> "za 1 minutę"
+    Future, Minute, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "za %d minut"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "za %d minuty"
+            _ -> "za %d minut"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Future, Hour, 1 -> "za 1 godzinę"
+    Future, Hour, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "za %d godzin"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "za %d godziny"
+            _ -> "za %d godzin"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Future, Day, 1 -> "za 1 dzień"
+    Future, Day, a -> "za %d dni" |> replace_percent_d_with_int(a)
+    Future, Week, 1 -> "za tydzień"
+    Future, Week, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "za %d tygodni"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "za %d tygodnie"
+            _ -> "za %d tygodni"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Future, Month, 1 -> "za miesiąc"
+    Future, Month, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "za %d miesięcy"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "za %d miesiące"
+            _ -> "za %d miesięcy"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+    Future, Year, 1 -> "za rok"
+    Future, Year, a ->
+      case a % 100 {
+        12 | 13 | 14 -> "za %d lat"
+        _ ->
+          case a % 10 {
+            2 | 3 | 4 -> "za %d lata"
+            _ -> "za %d lat"
+          }
+      }
+      |> replace_percent_d_with_int(a)
+  }
+}
