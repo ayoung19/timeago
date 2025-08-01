@@ -356,3 +356,39 @@ pub fn it_it(tense: Tense, unit: Unit, amount: Int) -> String {
     Future, Year, a -> "fra %d anni" |> replace_percent_d_with_int(a)
   }
 }
+
+/// Translations for Spanish.
+///
+pub fn es_es(tense: Tense, unit: Unit, amount: Int) -> String {
+  case tense, unit, amount {
+    _, Nanosecond, _ | _, Microsecond, _ | _, Millisecond, _ -> "ahora mismo"
+    Past, Second, 1 -> "hace 1 segundo"
+    Past, Second, a -> "hace %d segundos" |> replace_percent_d_with_int(a)
+    Past, Minute, 1 -> "hace 1 minuto"
+    Past, Minute, a -> "hace %d minutos" |> replace_percent_d_with_int(a)
+    Past, Hour, 1 -> "hace 1 hora"
+    Past, Hour, a -> "hace %d horas" |> replace_percent_d_with_int(a)
+    Past, Day, 1 -> "hace 1 día"
+    Past, Day, a -> "hace %d días" |> replace_percent_d_with_int(a)
+    Past, Week, 1 -> "hace 1 semana"
+    Past, Week, a -> "hace %d semanas" |> replace_percent_d_with_int(a)
+    Past, Month, 1 -> "hace 1 mes"
+    Past, Month, a -> "hace %d meses" |> replace_percent_d_with_int(a)
+    Past, Year, 1 -> "hace 1 año"
+    Past, Year, a -> "hace %d años" |> replace_percent_d_with_int(a)
+    Future, Second, 1 -> "en 1 segundo"
+    Future, Second, a -> "en %d segundos" |> replace_percent_d_with_int(a)
+    Future, Minute, 1 -> "en 1 minuto"
+    Future, Minute, a -> "en %d minutos" |> replace_percent_d_with_int(a)
+    Future, Hour, 1 -> "en 1 hora"
+    Future, Hour, a -> "en %d horas" |> replace_percent_d_with_int(a)
+    Future, Day, 1 -> "en 1 día"
+    Future, Day, a -> "en %d días" |> replace_percent_d_with_int(a)
+    Future, Week, 1 -> "en 1 semana"
+    Future, Week, a -> "en %d semanas" |> replace_percent_d_with_int(a)
+    Future, Month, 1 -> "en 1 mes"
+    Future, Month, a -> "en %d meses" |> replace_percent_d_with_int(a)
+    Future, Year, 1 -> "en 1 año"
+    Future, Year, a -> "en %d años" |> replace_percent_d_with_int(a)
+  }
+}
